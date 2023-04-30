@@ -1,0 +1,121 @@
+/* Elementos em geral */
+.subtitle {
+  font-size: 0.7em;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 30px;
+}
+
+body * {
+  line-height: 1.2 !important;
+}
+
+.reveal pre {
+  font-size: 0.3em;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.gap10 {
+  gap: 10%;
+}
+
+/* Slides sobre camadas do ggplot */
+#defines-layers {
+  justify-content: space-between;
+}
+
+#defines-layers > p:first-child {
+  width: 60%;
+}
+
+#defines-layers > p:last-child {
+  width: 30%;
+}
+
+.listing-items {
+  justify-content: space-around;
+  align-items: flex-end;
+  margin-top: 5%;
+}
+
+.listing-items > div {
+  width: 25%;
+}
+
+.list-item {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.list-item strong {
+  font-size: 1.6em;
+}
+
+.list-item hr {
+  border: red 2px solid;
+  border-radius: 2px;
+  width: 90%;
+  margin: 0.2em;
+}
+
+.code-layers {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Slides sobre aes */
+#explain-aes {
+  justify-content: space-around;
+  align-items: flex-start;
+  margin-top: 5%;
+}
+
+#explain-aes > div:nth-child(1) {
+  width: 30%;
+}
+
+#explain-aes > div:nth-child(2) {
+  width: 20%;
+}
+
+#explain-aes > div:nth-child(3) {
+  width: 30%;
+}
+
+/* Slides sobre vantagens do ggiraph */
+#why-ggiraph {
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 100%;
+}
+
+#why-gif {
+  width: 90%;
+  height: 250px;
+  background-image: url('./images/why.gif');
+  background-size: cover;
+  background-position-y: 15%;
+}
+
+#why-ggiraph > blockquote {
+  width: 75%;
+}
+
+#why-elements {
+  margin-top: 5%;
+  justify-content: space-around;
+}
+
+#why-example {
+  justify-content: space-between;
+}
+
+#why-example > div:first-child {
+  width: 55%;
+}

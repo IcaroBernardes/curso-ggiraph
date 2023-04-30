@@ -1,0 +1,510 @@
+---
+format:
+  revealjs:
+    transition: fade
+    css: www/styles.css
+    theme: dark
+execute: 
+  echo: false
+  warning: false
+  error: false
+---
+
+## Title
+
+```{r}
+# Carrega bibliotecas
+library(dplyr)
+library(ggplot2)
+library(ggiraph)
+library(carnaval)
+library(glue)
+
+# Carrega notas do grupo especial do carnaval carioca de 10/11 e calcula totais
+bancodedados <- carnaval::get_scores(years = 2010:2011)
+bancodedados <- bancodedados |> 
+  dplyr::group_by(year, school) |> 
+  dplyr::summarise(score = sum(score, na.rm = TRUE)) |> 
+  dplyr::ungroup()
+
+# Associa nomes de imagens a um subconjunto de escolas
+files <- dplyr::tibble(
+  school = c(
+    "Acadêmicos do Grande Rio",
+    "Acadêmicos do Salgueiro",
+    "Beija-Flor de Nilópolis",
+    "Estação Primeira de Mangueira",
+    "Imperatriz Leopoldinense",
+    "Mocidade Independente de Padre Miguel",
+    "Portela",
+    "União da Ilha do Governador",
+    "Unidos da Tijuca",
+    "Unidos de Vila Isabel",
+    "Unidos do Viradouro",
+    "São Clemente"
+  ),
+  filename = c(
+    "Grande_Rio",
+    "Salgueiro",
+    "Beija_Flor",
+    "Mangueira",
+    "Imperatriz_Leopoldinense",
+    "Padre_Miguel",
+    "Portela",
+    "Uniao_Ilha",
+    "Tijuca",
+    "Vila_Isabel",
+    "Viradouro",
+    "Sao_Clemente"
+  )
+)
+bancodedados <- bancodedados |> dplyr::inner_join(files)
+
+```
+
+## ggplot
+[Compondo gráficos com camadas]{.subtitle}
+
+<div class='flex-container' id='defines-layers'>
+O `{ggplot2}` tem como base o conceito de "Gramática de gráficos". Isto é, os gráficos são compostos através da combinação entre elementos individuais.
+
+![](https://ggplot2.tidyverse.org/logo.png)
+</div>
+
+<!-- ########################## Slide ########################## -->
+## ggplot
+[Compondo gráficos com camadas]{.subtitle}
+
+Frequentemente encontramos em gráficos ao menos três tipos de elementos que nos permitem produzir uma representação visual das variáveis presentes em um banco de dados:
+
+<div class='flex-container listing-items'>
+<div class='list-item'><div>Formas geométricas</div><hr>**geom**</div>
+<div class='list-item'><div>Regras do mapeamento</div><hr>**scale**</div>
+<div class='list-item'><div>Estética e decoração</div><hr>**theme**</div>
+</div>
+
+<!-- ########################## Slide ########################## -->
+## ggplot
+[Compondo gráficos com camadas]{.subtitle}
+
+<div class='flex-container gap10'>
+<div class='code-layers gap10'>
+```{.r code-line-numbers="1-4"}
+ggplot(bancodedados) +
+  geom_point(
+    aes(x = year, y = score, color = score), size = 10
+  ) +
+  scale_color_gradientn(
+    colours = rio.paletter("Mangueira")
+  ) +
+  scale_x_discrete() +
+  theme_minimal() +
+  theme(
+    text = element_text(size = 30, color = "white"),
+    axis.title = element_text(size = 40),
+    plot.background = element_rect(fill = "#191919", color = "#191919")
+  )
+```
+<div class='list-item'><div>Formas geométricas</div><hr>**geom**</div>
+</div>
+
+```{r, fig.height=10}
+ggplot(bancodedados) +
+  geom_point(
+    aes(x = year, y = score, color = score), size = 10
+  ) 
+```
+</div>
+
+<!-- ########################## Slide ########################## -->
+## ggplot
+[Compondo gráficos com camadas]{.subtitle}
+
+<div class='flex-container gap10'>
+<div class='code-layers gap10'>
+```{.r code-line-numbers="5-8"}
+ggplot(bancodedados) +
+  geom_point(
+    aes(x = year, y = score, color = score), size = 10
+  ) +
+  scale_color_gradientn(
+    colours = rio.paletter("Mangueira")
+  ) +
+  scale_x_discrete() +
+  theme_minimal() +
+  theme(
+    text = element_text(size = 30, color = "white"),
+    axis.title = element_text(size = 40),
+    plot.background = element_rect(fill = "#191919", color = "#191919")
+  )
+```
+<div class='list-item'><div>Regras do mapeamento</div><hr>**scale**</div>
+</div>
+
+```{r, fig.height=10}
+ggplot(bancodedados) +
+  geom_point(
+    aes(x = year, y = score, color = score), size = 10
+  ) +
+  scale_color_gradientn(
+    colours = rio.paletter("Mangueira")
+  ) +
+  scale_x_discrete()
+```
+</div>
+
+<!-- ########################## Slide ########################## -->
+## ggplot
+[Compondo gráficos com camadas]{.subtitle}
+
+<div class='flex-container gap10'>
+<div class='code-layers gap10'>
+```{.r code-line-numbers="9-14"}
+ggplot(bancodedados) +
+  geom_point(
+    aes(x = year, y = score, color = score), size = 10
+  ) +
+  scale_color_gradientn(
+    colours = rio.paletter("Mangueira")
+  ) +
+  scale_x_discrete() +
+  theme_minimal() +
+  theme(
+    text = element_text(size = 30, color = "white"),
+    axis.title = element_text(size = 40),
+    plot.background = element_rect(fill = "#191919", color = "#191919")
+  )
+```
+<div class='list-item'><div>Estética e decoração</div><hr>**theme**</div>
+</div>
+
+```{r, fig.height=10}
+ggplot(bancodedados) +
+  geom_point(
+    aes(x = year, y = score, color = score), size = 10
+  ) +
+  scale_color_gradientn(
+    colours = rio.paletter("Mangueira")
+  ) +
+  scale_x_discrete() +
+  theme_minimal() +
+  theme(
+    text = element_text(size = 30, color = "white"),
+    axis.title = element_text(size = 40),
+    plot.background = element_rect(fill = "#191919", color = "#191919")
+  )
+```
+</div>
+
+<!-- ########################## Slide ########################## -->
+## A função aes()
+[Mapeando variáveis]{.subtitle}
+
+A função `aes()` é o elo de ligação entre as variáveis do banco de dados e as formas geométricas em um gráfico.
+
+<div class='flex-container' id='explain-aes'>
+```{r}
+set.seed(13)
+bancodedados |> 
+  dplyr::select(year, score, school) |> 
+  dplyr::slice(sample.int(n(), n()))
+```
+
+```{.r}
+aes(
+  x = year,
+  y = score,
+  color = score
+)
+```
+
+```{r, fig.height=9}
+ggplot(bancodedados) +
+  geom_point(
+    aes(x = year, y = score, color = score), size = 10
+  ) +
+  scale_color_gradientn(
+    colours = rio.paletter("Mangueira")
+  ) +
+  scale_x_discrete() +
+  theme_minimal() +
+  theme(
+    text = element_text(size = 30, color = "white"),
+    axis.title = element_text(size = 40),
+    plot.background = element_rect(fill = "#191919", color = "#191919")
+  )
+```
+</div>
+
+<!-- ########################## Slide ########################## -->
+## {}
+<div class='flex-container' id='why-ggiraph'>
+
+<div id='why-gif'></div>
+> É incrível como o `{ggplot}` nos permite expressar variáveis em uma linguagem visual.\n
+Mas por que usar `{ggiraph}` para gerar gráficos interativos?
+
+</div>
+
+<!-- ########################## Slide ########################## -->
+## Por que ggiraph?
+[Interatividade num vapt-vupt]{.subtitle}
+
+O `{ggiraph}` segue a mesma filosofia do `{ggplot}`, mas com elementos interativos.
+
+<div class='flex-container' id='why-elements'>
+<div class='list-item'><div>geom_point()</div><hr>**ggplot**</div>
+<div class='list-item'><div>geom_point_interactive()</div><hr>**ggiraph**</div>
+</div>
+
+<!-- ########################## Slide ########################## -->
+## Por que ggiraph?
+[Interatividade num vapt-vupt]{.subtitle}
+
+<div class='flex-container' id='why-example'>
+```{.r code-line-numbers="3-4|7-12|24-25"}
+# Versão estática c/ elementos interativos e sintaxe ggplot
+estatico <- ggplot(bancodedados) +
+  ## Elemento interativo (geom)
+  geom_point_interactive(
+    aes(x = year, y = score, color = score), size = 10
+  ) +
+  ## Mapeamentos interativos
+  aes(
+    tooltip = school,
+    data_id = school,
+    onclick = 'this.style.r = "20";'
+  ) +
+  scale_color_gradientn(
+    colours = rio.paletter("Mangueira")
+  ) +
+  scale_x_discrete() +
+  theme_minimal() +
+  theme(
+    text = element_text(size = 30, color = "white"),
+    axis.title = element_text(size = 40),
+    plot.background = element_rect(fill = "#191919", color = "#191919")
+  )
+
+# Versão interativa
+ggiraph::girafe(ggobj = estatico, bg = "#191919")
+```
+
+```{r, fig.height=12}
+# Versão estática c/ elementos interativos e sintaxe ggplot
+estatico <- ggplot(bancodedados) +
+  ## Elemento interativo (geom)
+  geom_point_interactive(
+    aes(x = year, y = score, color = score), size = 10
+  ) +
+  ## Mapeamentos interativos
+  aes(
+    tooltip = school,
+    data_id = school,
+    onclick = 'this.style.r = "20";'
+  ) +
+  scale_color_gradientn(
+    colours = rio.paletter("Mangueira")
+  ) +
+  scale_x_discrete() +
+  theme_minimal() +
+  theme(
+    text = element_text(size = 30, color = "white"),
+    axis.title = element_text(size = 40),
+    plot.background = element_rect(fill = "#191919", color = "#191919")
+  )
+
+# Versão interativa
+ggiraph::girafe(ggobj = estatico, bg = "#191919")
+```
+</div>
+
+<!-- ########################## Slide ########################## -->
+## Argumentos aes() do ggiraph
+[Mapeando interatividade]{.subtitle}
+
+Três novos argumentos fazem a mediação entre o banco de dados e a peça interativa no `{ggiraph}`:
+
+<div class='flex-container listing-items'>
+<div class='list-item'><div>Cria tooltips com HTML</div><hr>**tooltip**</div>
+<div class='list-item'><div>Agrupa formas geométricas</div><hr>**data_id**</div>
+<div class='list-item'><div>Comandos JS por clique</div><hr>**onclick**</div>
+</div>
+
+<!-- ########################## Slide ########################## -->
+## Argumentos aes() do ggiraph
+[Mapeando interatividade]{.subtitle}
+
+<div class='flex-container gap10'>
+<div class='code-layers gap10'>
+```{.r code-line-numbers="5-11"}
+estatico <- ggplot(bancodedados) +
+  geom_point_interactive(
+    aes(x = year, y = score, color = score), size = 10
+  ) +
+  aes(
+    # Tooltip é uma string que aceita código HTML e CSS
+    tooltip = glue::glue(
+      "<img src='www/images/{filename}.jpg' width='150px;'>
+      <div style='width:110px;text-align:center;padding:20px;'>{school}</div>"
+    ),
+  ) +
+  scale_color_gradientn(
+    colours = rio.paletter("Mangueira")
+  ) +
+  scale_x_discrete() +
+  theme_minimal() +
+  theme(
+    text = element_text(size = 30, color = "white"),
+    axis.title = element_text(size = 40),
+    plot.background = element_rect(fill = "#191919", color = "#191919")
+  )
+
+ggiraph::girafe(ggobj = estatico, bg = "#191919")
+```
+<div class='list-item'><div>Cria tooltips com HTML</div><hr>**tooltip**</div>
+</div>
+
+```{r, fig.height=18}
+estatico <- ggplot(bancodedados) +
+  geom_point_interactive(
+    aes(x = year, y = score, color = score), size = 10
+  ) +
+  aes(
+    # Tooltip é uma string que aceita código HTML e CSS
+    tooltip = glue::glue(
+      "<img src='www/images/{filename}.jpg' width='150px;'>
+      <div style='width:110px;text-align:center;padding:20px;'>{school}</div>"
+    ),
+  ) +
+  scale_color_gradientn(
+    colours = rio.paletter("Mangueira")
+  ) +
+  scale_x_discrete() +
+  theme_minimal() +
+  theme(
+    text = element_text(size = 30, color = "white"),
+    axis.title = element_text(size = 40),
+    plot.background = element_rect(fill = "#191919", color = "#191919")
+  )
+
+ggiraph::girafe(ggobj = estatico, bg = "#191919")
+```
+</div>
+
+<!-- ########################## Slide ########################## -->
+## Argumentos aes() do ggiraph
+[Mapeando interatividade]{.subtitle}
+
+<div class='flex-container gap10'>
+<div class='code-layers gap10'>
+```{.r code-line-numbers="5-8"}
+estatico <- ggplot(bancodedados) +
+  geom_point_interactive(
+    aes(x = year, y = score, color = score), size = 10
+  ) +
+  aes(
+    # data_id é similar ao argumento group do aes()
+    data_id = year
+  ) +
+  scale_color_gradientn(
+    colours = rio.paletter("Mangueira")
+  ) +
+  scale_x_discrete() +
+  theme_minimal() +
+  theme(
+    text = element_text(size = 30, color = "white"),
+    axis.title = element_text(size = 40),
+    plot.background = element_rect(fill = "#191919", color = "#191919")
+  )
+
+ggiraph::girafe(ggobj = estatico, bg = "#191919")
+```
+<div class='list-item'><div>Agrupa formas geométricas</div><hr>**data_id**</div>
+</div>
+
+```{r, fig.height=18}
+estatico <- ggplot(bancodedados) +
+  geom_point_interactive(
+    aes(x = year, y = score, color = score), size = 10
+  ) +
+  aes(
+    # data_id é similar ao argumento group do aes()
+    data_id = year
+  ) +
+  scale_color_gradientn(
+    colours = rio.paletter("Mangueira")
+  ) +
+  scale_x_discrete() +
+  theme_minimal() +
+  theme(
+    text = element_text(size = 30, color = "white"),
+    axis.title = element_text(size = 40),
+    plot.background = element_rect(fill = "#191919", color = "#191919")
+  )
+
+ggiraph::girafe(ggobj = estatico, bg = "#191919")
+```
+</div>
+
+<!-- ########################## Slide ########################## -->
+## Argumentos aes() do ggiraph
+[Mapeando interatividade]{.subtitle}
+
+<div class='flex-container gap10'>
+<div class='code-layers gap10'>
+```{.r code-line-numbers="5-10"}
+estatico <- ggplot(bancodedados) +
+  geom_point_interactive(
+    aes(x = year, y = score, color = score), size = 10
+  ) +
+  aes(
+    # onclick é uma string com comandos JS disparados ao clicar numa forma geométrica
+    onclick = 'this.style.r = "20";
+    this.style.fill = "red";
+    setTimeout(() => {  this.style.r = "12"; }, 1000);'
+  ) +
+  scale_color_gradientn(
+    colours = rio.paletter("Mangueira")
+  ) +
+  scale_x_discrete() +
+  theme_minimal() +
+  theme(
+    text = element_text(size = 30, color = "white"),
+    axis.title = element_text(size = 40),
+    plot.background = element_rect(fill = "#191919", color = "#191919")
+  )
+
+ggiraph::girafe(ggobj = estatico, bg = "#191919")
+```
+<div class='list-item'><div>Comandos JS por clique</div><hr>**onclick**</div>
+</div>
+
+```{r, fig.height=18}
+estatico <- ggplot(bancodedados) +
+  geom_point_interactive(
+    aes(x = year, y = score, color = score), size = 10
+  ) +
+  aes(
+    # onclick é uma string com comandos JS disparados ao clicar numa forma geométrica
+    onclick = 'this.style.r = "20";
+    this.style.fill = "red";
+    setTimeout(() => {  this.style.r = "12"; }, 1000);'
+  ) +
+  scale_color_gradientn(
+    colours = rio.paletter("Mangueira")
+  ) +
+  scale_x_discrete() +
+  theme_minimal() +
+  theme(
+    text = element_text(size = 30, color = "white"),
+    axis.title = element_text(size = 40),
+    plot.background = element_rect(fill = "#191919", color = "#191919")
+  )
+
+ggiraph::girafe(ggobj = estatico, bg = "#191919")
+```
+</div>
+
+
+
