@@ -10,7 +10,12 @@ execute:
   error: false
 ---
 
-## Title
+## {}
+
+Introdução ao `{ggiraph}`
+
+Ícaro Bernardes
+Especialista em dataviz - BIT::Analytics
 
 ```{r}
 # Carrega bibliotecas
@@ -65,7 +70,7 @@ bancodedados <- bancodedados |> dplyr::inner_join(files)
 ## ggplot
 [Compondo gráficos com camadas]{.subtitle}
 
-<div class='flex-container' id='defines-layers'>
+<div class='flex-row' id='defines-layers'>
 O `{ggplot2}` tem como base o conceito de "Gramática de gráficos". Isto é, os gráficos são compostos através da combinação entre elementos individuais.
 
 ![](https://ggplot2.tidyverse.org/logo.png)
@@ -77,7 +82,7 @@ O `{ggplot2}` tem como base o conceito de "Gramática de gráficos". Isto é, os
 
 Frequentemente encontramos em gráficos ao menos três tipos de elementos que nos permitem produzir uma representação visual das variáveis presentes em um banco de dados:
 
-<div class='flex-container listing-items'>
+<div class='flex-row listing-items'>
 <div class='list-item'><div>Formas geométricas</div><hr>**geom**</div>
 <div class='list-item'><div>Regras do mapeamento</div><hr>**scale**</div>
 <div class='list-item'><div>Estética e decoração</div><hr>**theme**</div>
@@ -87,8 +92,8 @@ Frequentemente encontramos em gráficos ao menos três tipos de elementos que no
 ## ggplot
 [Compondo gráficos com camadas]{.subtitle}
 
-<div class='flex-container gap10'>
-<div class='code-layers gap10'>
+<div class='flex-row gap10'>
+<div class='flex-column gap10'>
 ```{.r code-line-numbers="1-4"}
 ggplot(bancodedados) +
   geom_point(
@@ -120,8 +125,8 @@ ggplot(bancodedados) +
 ## ggplot
 [Compondo gráficos com camadas]{.subtitle}
 
-<div class='flex-container gap10'>
-<div class='code-layers gap10'>
+<div class='flex-row gap10'>
+<div class='flex-column gap10'>
 ```{.r code-line-numbers="5-8"}
 ggplot(bancodedados) +
   geom_point(
@@ -157,8 +162,8 @@ ggplot(bancodedados) +
 ## ggplot
 [Compondo gráficos com camadas]{.subtitle}
 
-<div class='flex-container gap10'>
-<div class='code-layers gap10'>
+<div class='flex-row gap10'>
+<div class='flex-column gap10'>
 ```{.r code-line-numbers="9-14"}
 ggplot(bancodedados) +
   geom_point(
@@ -202,7 +207,7 @@ ggplot(bancodedados) +
 
 A função `aes()` é o elo de ligação entre as variáveis do banco de dados e as formas geométricas em um gráfico.
 
-<div class='flex-container' id='explain-aes'>
+<div class='flex-row' id='explain-aes'>
 ```{r}
 set.seed(13)
 bancodedados |> 
@@ -238,7 +243,7 @@ ggplot(bancodedados) +
 
 <!-- ########################## Slide ########################## -->
 ## {}
-<div class='flex-container' id='why-ggiraph'>
+<div class='flex-row' id='why-ggiraph'>
 
 <div id='why-gif'></div>
 > É incrível como o `{ggplot}` nos permite expressar variáveis em uma linguagem visual.\n
@@ -252,7 +257,7 @@ Mas por que usar `{ggiraph}` para gerar gráficos interativos?
 
 O `{ggiraph}` segue a mesma filosofia do `{ggplot}`, mas com elementos interativos.
 
-<div class='flex-container' id='why-elements'>
+<div class='flex-row' id='why-elements'>
 <div class='list-item'><div>geom_point()</div><hr>**ggplot**</div>
 <div class='list-item'><div>geom_point_interactive()</div><hr>**ggiraph**</div>
 </div>
@@ -261,7 +266,7 @@ O `{ggiraph}` segue a mesma filosofia do `{ggplot}`, mas com elementos interativ
 ## Por que ggiraph?
 [Interatividade num vapt-vupt]{.subtitle}
 
-<div class='flex-container' id='why-example'>
+<div class='flex-row' id='why-example'>
 ```{.r code-line-numbers="3-4|7-12|24-25"}
 # Versão estática c/ elementos interativos e sintaxe ggplot
 estatico <- ggplot(bancodedados) +
@@ -320,12 +325,46 @@ ggiraph::girafe(ggobj = estatico, bg = "#191919")
 </div>
 
 <!-- ########################## Slide ########################## -->
+## Por que ggiraph?
+[Interatividade num vapt-vupt]{.subtitle}
+
+Etapas de criação de um gráfico interativo `ggiraph`:
+
+<div id='why-steps'>
+<div class='text-steps'>Uso de elementos interativos<br><span>geom, scale, etc</span></div>
+```{.r}
+geom_point_interactive(
+  aes(x = year, y = score, color = score),
+  size = 10
+) 
+```
+
+<div class='text-steps'>Uso de mapeamentos interativos<br><span>tooltip, data_id e onclick</span></div>
+```{.r}
+aes(
+  tooltip = school,
+  data_id = school,
+  onclick = 'this.style.r = "20";'
+)
+```
+
+<div class='text-steps'>Criação do objeto interativo<br><span>girafe com ggobj e options</span></div>
+```{.r}
+ggiraph::girafe(
+  # É fundamental declarar o argumento *ggobj* na função
+  ggobj = estatico, 
+  bg = "#191919"
+)
+```
+</div>
+
+<!-- ########################## Slide ########################## -->
 ## Argumentos aes() do ggiraph
 [Mapeando interatividade]{.subtitle}
 
 Três novos argumentos fazem a mediação entre o banco de dados e a peça interativa no `{ggiraph}`:
 
-<div class='flex-container listing-items'>
+<div class='flex-row listing-items'>
 <div class='list-item'><div>Cria tooltips com HTML</div><hr>**tooltip**</div>
 <div class='list-item'><div>Agrupa formas geométricas</div><hr>**data_id**</div>
 <div class='list-item'><div>Comandos JS por clique</div><hr>**onclick**</div>
@@ -335,8 +374,8 @@ Três novos argumentos fazem a mediação entre o banco de dados e a peça inter
 ## Argumentos aes() do ggiraph
 [Mapeando interatividade]{.subtitle}
 
-<div class='flex-container gap10'>
-<div class='code-layers gap10'>
+<div class='flex-row gap10'>
+<div class='flex-column gap10 aes-code'>
 ```{.r code-line-numbers="5-11"}
 estatico <- ggplot(bancodedados) +
   geom_point_interactive(
@@ -347,11 +386,9 @@ estatico <- ggplot(bancodedados) +
     tooltip = glue::glue(
       "<img src='www/images/{filename}.jpg' width='150px;'>
       <div style='width:110px;text-align:center;padding:20px;'>{school}</div>"
-    ),
+    )
   ) +
-  scale_color_gradientn(
-    colours = rio.paletter("Mangueira")
-  ) +
+  scale_color_gradientn(colours = rio.paletter("Mangueira")) +
   scale_x_discrete() +
   theme_minimal() +
   theme(
@@ -375,11 +412,9 @@ estatico <- ggplot(bancodedados) +
     tooltip = glue::glue(
       "<img src='www/images/{filename}.jpg' width='150px;'>
       <div style='width:110px;text-align:center;padding:20px;'>{school}</div>"
-    ),
+    )
   ) +
-  scale_color_gradientn(
-    colours = rio.paletter("Mangueira")
-  ) +
+  scale_color_gradientn(colours = rio.paletter("Mangueira")) +
   scale_x_discrete() +
   theme_minimal() +
   theme(
@@ -396,8 +431,8 @@ ggiraph::girafe(ggobj = estatico, bg = "#191919")
 ## Argumentos aes() do ggiraph
 [Mapeando interatividade]{.subtitle}
 
-<div class='flex-container gap10'>
-<div class='code-layers gap10'>
+<div class='flex-row gap10'>
+<div class='flex-column gap10 aes-code'>
 ```{.r code-line-numbers="5-8"}
 estatico <- ggplot(bancodedados) +
   geom_point_interactive(
@@ -407,9 +442,7 @@ estatico <- ggplot(bancodedados) +
     # data_id é similar ao argumento group do aes()
     data_id = year
   ) +
-  scale_color_gradientn(
-    colours = rio.paletter("Mangueira")
-  ) +
+  scale_color_gradientn(colours = rio.paletter("Mangueira")) +
   scale_x_discrete() +
   theme_minimal() +
   theme(
@@ -432,9 +465,7 @@ estatico <- ggplot(bancodedados) +
     # data_id é similar ao argumento group do aes()
     data_id = year
   ) +
-  scale_color_gradientn(
-    colours = rio.paletter("Mangueira")
-  ) +
+  scale_color_gradientn(colours = rio.paletter("Mangueira")) +
   scale_x_discrete() +
   theme_minimal() +
   theme(
@@ -451,8 +482,8 @@ ggiraph::girafe(ggobj = estatico, bg = "#191919")
 ## Argumentos aes() do ggiraph
 [Mapeando interatividade]{.subtitle}
 
-<div class='flex-container gap10'>
-<div class='code-layers gap10'>
+<div class='flex-row gap10'>
+<div class='flex-column gap10 aes-code'>
 ```{.r code-line-numbers="5-10"}
 estatico <- ggplot(bancodedados) +
   geom_point_interactive(
@@ -464,9 +495,7 @@ estatico <- ggplot(bancodedados) +
     this.style.fill = "red";
     setTimeout(() => {  this.style.r = "12"; }, 1000);'
   ) +
-  scale_color_gradientn(
-    colours = rio.paletter("Mangueira")
-  ) +
+  scale_color_gradientn(colours = rio.paletter("Mangueira")) +
   scale_x_discrete() +
   theme_minimal() +
   theme(
@@ -491,9 +520,7 @@ estatico <- ggplot(bancodedados) +
     this.style.fill = "red";
     setTimeout(() => {  this.style.r = "12"; }, 1000);'
   ) +
-  scale_color_gradientn(
-    colours = rio.paletter("Mangueira")
-  ) +
+  scale_color_gradientn(colours = rio.paletter("Mangueira")) +
   scale_x_discrete() +
   theme_minimal() +
   theme(
@@ -506,5 +533,85 @@ ggiraph::girafe(ggobj = estatico, bg = "#191919")
 ```
 </div>
 
+<!-- ########################## Slide ########################## -->
+## Customizando o gráfico
+[Família de funções opts_xxxx()]{.subtitle}
+
+```{r}
+estatico <- ggplot(bancodedados) +
+  geom_point_interactive(
+    aes(
+      x = year, y = score, color = score,
+      tooltip = glue::glue("<strong style='font-size:2em;'>{score}</strong><br>{school}"),
+      data_id = school
+    ), size = 10
+  ) +
+  geom_text_interactive(
+    aes(x = year, y = score, label = score, data_id = school),
+    size = 7, alpha = 0.5, color = "white", hjust = -0.7
+  ) +
+  scale_color_gradientn(colours = rio.paletter("Mangueira")) +
+  scale_x_discrete() +
+  theme_minimal() +
+  theme(
+    text = element_text(size = 30, color = "white"),
+    axis.title = element_text(size = 40),
+    plot.background = element_rect(fill = "#191919", color = "#191919"),
+    plot.margin = margin(10,1,1,1, "lines")
+  )
+```
+
+<div class='flex-row gap10'>
+<div class='flex-column gap10' id='custom-intro'>
+<div>O argumento `options` é uma lista que recebe funções da família opts_xxxx()</div>
+```{.r code-line-numbers="4-19|5-6|7-8|9-18"}
+ggiraph::girafe(
+  ggobj = estatico,
+  bg = "#191919",
+  options = list(
+    opts_tooltip(css = "width:100px;border-radius:50px 0;padding:20px;",
+                 use_fill = TRUE),
+    opts_hover(css = "r:20;"),
+    opts_hover_inv(css = "opacity:0.1;"),
+    opts_selection(
+      css = girafe_css(
+        css = "opacity:1;",
+        text = "font-size:2em;",
+        point = "stroke:gold;stroke-width:5px;"
+      ),
+      type = "multiple",
+      only_shiny = FALSE
+    )
+  )
+)
+```
+</div>
+
+```{r, fig.height=17}
+ggiraph::girafe(
+  ggobj = estatico,
+  bg = "#191919",
+  options = list(
+    opts_tooltip(css = "width:100px;border-radius:50px 0;padding:20px;",
+                 use_fill = TRUE),
+    opts_hover(css = "r:20;"),
+    opts_hover_inv(css = "opacity:0.1;"),
+    opts_selection(
+      css = girafe_css(
+        css = "opacity:1;",
+        text = "font-size:2em;",
+        point = "stroke:gold;stroke-width:5px;"
+      ),
+      type = "multiple",
+      only_shiny = FALSE
+    )
+  )
+)
+```
+</div>
+
+<!-- ########################## Slide ########################## -->
+## Hospedando o gráfico
+[Interatividade além do painel "Viewer"]{.subtitle}
 
 
