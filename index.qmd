@@ -12,10 +12,14 @@ execute:
 
 ## {}
 
-Introdução ao `{ggiraph}`
+<div id='cover-title'>Introdução ao<br>`{ggiraph}`</div>
+<div id='cover-subtitle'>
+<div id='cover-author'>[Ícaro Bernardes](https://github.com/IcaroBernardes) | BIT::Analytics</div>
+VII SER International Seminar on Statistics with R<br>Maio de 2023
+</div>
 
-Ícaro Bernardes
-Especialista em dataviz - BIT::Analytics
+<div id='bg-masked' class='masked'></div>
+<div id='cover-masked' class='masked'></div>
 
 ```{r}
 # Carrega bibliotecas
@@ -24,6 +28,7 @@ library(ggplot2)
 library(ggiraph)
 library(carnaval)
 library(glue)
+library(htmltools)
 
 # Carrega notas do grupo especial do carnaval carioca de 10/11 e calcula totais
 bancodedados <- carnaval::get_scores(years = 2010:2011)
@@ -65,12 +70,24 @@ files <- dplyr::tibble(
 )
 bancodedados <- bancodedados |> dplyr::inner_join(files)
 
+htmltools::tags$svg(
+  class = "clip-svg",
+  htmltools::tags$defs(
+    htmltools::tags$clipPath(
+      id = "cover-mask", clipPathUnits="objectBoundingBox",
+      htmltools::tags$polygon(
+        points = "0 0, 0.9 0.1, 0.8 1"
+      )
+    )
+  )
+)
+
 ```
 
 ## ggplot
 [Compondo gráficos com camadas]{.subtitle}
 
-<div class='flex-row' id='defines-layers'>
+<div class='flex-row pkg-intro'>
 O `{ggplot2}` tem como base o conceito de "Gramática de gráficos". Isto é, os gráficos são compostos através da combinação entre elementos individuais.
 
 ![](https://ggplot2.tidyverse.org/logo.png)
@@ -107,7 +124,7 @@ ggplot(bancodedados) +
   theme(
     text = element_text(size = 30, color = "white"),
     axis.title = element_text(size = 40),
-    plot.background = element_rect(fill = "#191919", color = "#191919")
+    plot.background = element_rect(fill = "#0c0c0c", color = "#0c0c0c")
   )
 ```
 <div class='list-item'><div>Formas geométricas</div><hr>**geom**</div>
@@ -140,7 +157,7 @@ ggplot(bancodedados) +
   theme(
     text = element_text(size = 30, color = "white"),
     axis.title = element_text(size = 40),
-    plot.background = element_rect(fill = "#191919", color = "#191919")
+    plot.background = element_rect(fill = "#0c0c0c", color = "#0c0c0c")
   )
 ```
 <div class='list-item'><div>Regras do mapeamento</div><hr>**scale**</div>
@@ -177,7 +194,7 @@ ggplot(bancodedados) +
   theme(
     text = element_text(size = 30, color = "white"),
     axis.title = element_text(size = 40),
-    plot.background = element_rect(fill = "#191919", color = "#191919")
+    plot.background = element_rect(fill = "#0c0c0c", color = "#0c0c0c")
   )
 ```
 <div class='list-item'><div>Estética e decoração</div><hr>**theme**</div>
@@ -196,7 +213,7 @@ ggplot(bancodedados) +
   theme(
     text = element_text(size = 30, color = "white"),
     axis.title = element_text(size = 40),
-    plot.background = element_rect(fill = "#191919", color = "#191919")
+    plot.background = element_rect(fill = "#0c0c0c", color = "#0c0c0c")
   )
 ```
 </div>
@@ -236,7 +253,7 @@ ggplot(bancodedados) +
   theme(
     text = element_text(size = 30, color = "white"),
     axis.title = element_text(size = 40),
-    plot.background = element_rect(fill = "#191919", color = "#191919")
+    plot.background = element_rect(fill = "#0c0c0c", color = "#0c0c0c")
   )
 ```
 </div>
@@ -250,6 +267,18 @@ ggplot(bancodedados) +
 Mas por que usar `{ggiraph}` para gerar gráficos interativos?
 
 </div>
+
+<!-- ########################## Slide ########################## -->
+## Por que ggiraph?
+[Interatividade num vapt-vupt]{.subtitle}
+
+<div class='flex-row pkg-intro'>
+O `{ggiraph}` é uma extensão do `{ggplot2}` e do `{htmlwidgets}` que traduz elementos ggplot em suas contrapartes na biblioteca `d3.js`.
+
+![](https://github.com/davidgohel/ggiraph/raw/master/man/figures/logo.png)
+</div>
+
+<div id='why-girafe'>A proposta dos autores David Gohel e Panagiotis Skintzos é facilitar a criação de gráficos interativos/dinâmicos em documentos HTML feitos em Quarto/R Markdown e apps feitos em Shiny.</div>
 
 <!-- ########################## Slide ########################## -->
 ## Por que ggiraph?
@@ -288,11 +317,11 @@ estatico <- ggplot(bancodedados) +
   theme(
     text = element_text(size = 30, color = "white"),
     axis.title = element_text(size = 40),
-    plot.background = element_rect(fill = "#191919", color = "#191919")
+    plot.background = element_rect(fill = "#0c0c0c", color = "#0c0c0c")
   )
 
 # Versão interativa
-ggiraph::girafe(ggobj = estatico, bg = "#191919")
+ggiraph::girafe(ggobj = estatico, bg = "#0c0c0c")
 ```
 
 ```{r, fig.height=12}
@@ -316,11 +345,11 @@ estatico <- ggplot(bancodedados) +
   theme(
     text = element_text(size = 30, color = "white"),
     axis.title = element_text(size = 40),
-    plot.background = element_rect(fill = "#191919", color = "#191919")
+    plot.background = element_rect(fill = "#0c0c0c", color = "#0c0c0c")
   )
 
 # Versão interativa
-ggiraph::girafe(ggobj = estatico, bg = "#191919")
+ggiraph::girafe(ggobj = estatico, bg = "#0c0c0c")
 ```
 </div>
 
@@ -328,7 +357,7 @@ ggiraph::girafe(ggobj = estatico, bg = "#191919")
 ## Por que ggiraph?
 [Interatividade num vapt-vupt]{.subtitle}
 
-Etapas de criação de um gráfico interativo `ggiraph`:
+Etapas de criação de um gráfico interativo ggiraph:
 
 <div id='why-steps'>
 <div class='text-steps'>Uso de elementos interativos<br><span>geom, scale, etc</span></div>
@@ -353,7 +382,7 @@ aes(
 ggiraph::girafe(
   # É fundamental declarar o argumento *ggobj* na função
   ggobj = estatico, 
-  bg = "#191919"
+  bg = "#0c0c0c"
 )
 ```
 </div>
@@ -362,7 +391,7 @@ ggiraph::girafe(
 ## Argumentos aes() do ggiraph
 [Mapeando interatividade]{.subtitle}
 
-Três novos argumentos fazem a mediação entre o banco de dados e a peça interativa no `{ggiraph}`:
+Três novos argumentos fazem a mediação entre o banco de dados e a peça interativa no ggiraph:
 
 <div class='flex-row listing-items'>
 <div class='list-item'><div>Cria tooltips com HTML</div><hr>**tooltip**</div>
@@ -394,10 +423,10 @@ estatico <- ggplot(bancodedados) +
   theme(
     text = element_text(size = 30, color = "white"),
     axis.title = element_text(size = 40),
-    plot.background = element_rect(fill = "#191919", color = "#191919")
+    plot.background = element_rect(fill = "#0c0c0c", color = "#0c0c0c")
   )
 
-ggiraph::girafe(ggobj = estatico, bg = "#191919")
+ggiraph::girafe(ggobj = estatico, bg = "#0c0c0c")
 ```
 <div class='list-item'><div>Cria tooltips com HTML</div><hr>**tooltip**</div>
 </div>
@@ -420,10 +449,10 @@ estatico <- ggplot(bancodedados) +
   theme(
     text = element_text(size = 30, color = "white"),
     axis.title = element_text(size = 40),
-    plot.background = element_rect(fill = "#191919", color = "#191919")
+    plot.background = element_rect(fill = "#0c0c0c", color = "#0c0c0c")
   )
 
-ggiraph::girafe(ggobj = estatico, bg = "#191919")
+ggiraph::girafe(ggobj = estatico, bg = "#0c0c0c")
 ```
 </div>
 
@@ -448,10 +477,10 @@ estatico <- ggplot(bancodedados) +
   theme(
     text = element_text(size = 30, color = "white"),
     axis.title = element_text(size = 40),
-    plot.background = element_rect(fill = "#191919", color = "#191919")
+    plot.background = element_rect(fill = "#0c0c0c", color = "#0c0c0c")
   )
 
-ggiraph::girafe(ggobj = estatico, bg = "#191919")
+ggiraph::girafe(ggobj = estatico, bg = "#0c0c0c")
 ```
 <div class='list-item'><div>Agrupa formas geométricas</div><hr>**data_id**</div>
 </div>
@@ -471,10 +500,10 @@ estatico <- ggplot(bancodedados) +
   theme(
     text = element_text(size = 30, color = "white"),
     axis.title = element_text(size = 40),
-    plot.background = element_rect(fill = "#191919", color = "#191919")
+    plot.background = element_rect(fill = "#0c0c0c", color = "#0c0c0c")
   )
 
-ggiraph::girafe(ggobj = estatico, bg = "#191919")
+ggiraph::girafe(ggobj = estatico, bg = "#0c0c0c")
 ```
 </div>
 
@@ -501,10 +530,10 @@ estatico <- ggplot(bancodedados) +
   theme(
     text = element_text(size = 30, color = "white"),
     axis.title = element_text(size = 40),
-    plot.background = element_rect(fill = "#191919", color = "#191919")
+    plot.background = element_rect(fill = "#0c0c0c", color = "#0c0c0c")
   )
 
-ggiraph::girafe(ggobj = estatico, bg = "#191919")
+ggiraph::girafe(ggobj = estatico, bg = "#0c0c0c")
 ```
 <div class='list-item'><div>Comandos JS por clique</div><hr>**onclick**</div>
 </div>
@@ -526,10 +555,10 @@ estatico <- ggplot(bancodedados) +
   theme(
     text = element_text(size = 30, color = "white"),
     axis.title = element_text(size = 40),
-    plot.background = element_rect(fill = "#191919", color = "#191919")
+    plot.background = element_rect(fill = "#0c0c0c", color = "#0c0c0c")
   )
 
-ggiraph::girafe(ggobj = estatico, bg = "#191919")
+ggiraph::girafe(ggobj = estatico, bg = "#0c0c0c")
 ```
 </div>
 
@@ -556,18 +585,18 @@ estatico <- ggplot(bancodedados) +
   theme(
     text = element_text(size = 30, color = "white"),
     axis.title = element_text(size = 40),
-    plot.background = element_rect(fill = "#191919", color = "#191919"),
+    plot.background = element_rect(fill = "#0c0c0c", color = "#0c0c0c"),
     plot.margin = margin(10,1,1,1, "lines")
   )
 ```
 
 <div class='flex-row gap10'>
 <div class='flex-column gap10' id='custom-intro'>
-<div>O argumento `options` é uma lista que recebe funções da família opts_xxxx()</div>
+<div>O argumento `options` é uma lista que recebe funções da família `opts_xxxx()`</div>
 ```{.r code-line-numbers="4-19|5-6|7-8|9-18"}
 ggiraph::girafe(
   ggobj = estatico,
-  bg = "#191919",
+  bg = "#0c0c0c",
   options = list(
     opts_tooltip(css = "width:100px;border-radius:50px 0;padding:20px;",
                  use_fill = TRUE),
@@ -590,7 +619,7 @@ ggiraph::girafe(
 ```{r, fig.height=17}
 ggiraph::girafe(
   ggobj = estatico,
-  bg = "#191919",
+  bg = "#0c0c0c",
   options = list(
     opts_tooltip(css = "width:100px;border-radius:50px 0;padding:20px;",
                  use_fill = TRUE),
@@ -613,5 +642,21 @@ ggiraph::girafe(
 <!-- ########################## Slide ########################## -->
 ## Hospedando o gráfico
 [Interatividade além do painel "Viewer"]{.subtitle}
+
+Como o gráfico interativo do ggiraph é composto de elementos svg, ele pode ser inserido tanto em documentos HTML feitos em Quarto/R Markdown quanto em apps feitos em Shiny.
+
+<div class='flex-row gap10' id='host-img'>
+![](https://github.com/quarto-dev/quarto-r/raw/main/man/figures/quarto.png)
+
+![](https://github.com/rstudio/rmarkdown/raw/main/man/figures/logo.png)
+
+![](https://github.com/rstudio/shiny/raw/main/man/figures/logo.png)
+</div>
+
+<!-- ########################## Slide ########################## -->
+## Hospedando o gráfico
+[Interatividade além do painel "Viewer"]{.subtitle}
+
+
 
 

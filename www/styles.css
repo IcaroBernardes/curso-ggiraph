@@ -1,4 +1,9 @@
 /* Elementos em geral */
+:root {
+  --r-background-color: #0c0c0c;
+  --quarto-hl-fu-color: #92CCFF
+}
+
 body * {
   line-height: 1.2 !important;
 }
@@ -14,16 +19,13 @@ h2 {
   margin: 0 !important;
 }
 
-h2, .subtitle {
-  color: #e9f964  !important;
-}
-
 .reveal pre {
   font-size: 0.3em;
 }
 
 .flex-row {
   display: flex;
+  flex-direction: row;
 }
 
 .flex-column {
@@ -35,17 +37,87 @@ h2, .subtitle {
   gap: 10%;
 }
 
-/* Slides sobre camadas do ggplot */
-#defines-layers {
-  justify-content: space-between;
+/* Configura cores de links */
+:root {
+  --r-link-color: #42a4fa;
+  --r-link-color-dark: #067fea;
+  --r-link-color-hover: #74bcfb;
+  --r-selection-background-color: #bfe0fd;
 }
 
-#defines-layers > p:first-child {
+/* Slides de capa */
+#cover-title {
+  position: absolute;
+  top: 20%;
+  width: 100%;
+  font-size: 1.7em;
+  font-weight: bold;
+  background: linear-gradient(90deg, #0c0c0c 0%, #046FCC 25% 70%, #0c0c0c 100%);
+  color: var(--quarto-hl-fu-color);
+  padding: 3% 5%;
+}
+
+#cover-title code {
+  padding-left: 7%;
+  font-size: 1.5em;
+}
+
+#cover-subtitle {
+  position: absolute;
+  top: 70%;
+  left: 10%;
   width: 60%;
+  text-align: center;
+  font-size: 0.7em;
 }
 
-#defines-layers > p:last-child {
-  width: 30%;
+#cover-author {
+  font-size: 1.5em;
+}
+
+.clip-svg {
+  display: block;
+  width: 0;
+  height: 0;
+}
+
+.masked {
+  clip-path: url("#cover-mask");
+  position: absolute;
+  z-index: 1;
+}
+
+#bg-masked {
+  background: linear-gradient(#a2a6af, #c1a96f);
+  width: 55%;
+  height: 100%;
+  top: 0;
+  right: 0.5%;
+}
+
+#cover-masked {
+  background-image: url("./images/cover-img.jpg");
+  background-size: 115%;
+  background-position-x: 0%;
+  background-position-y: 60%;
+  width: 53%;
+  height: 97%;
+  top: 2%;
+  right: 0;
+}
+
+/* Slides sobre camadas do ggplot */
+.pkg-intro {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pkg-intro > p:first-child {
+  width: 80%;
+}
+
+.pkg-intro img {
+  height: 180px;
 }
 
 .listing-items {
@@ -70,7 +142,7 @@ h2, .subtitle {
 }
 
 .list-item hr {
-  border: #e9f964 2px solid;
+  border: #046FCC 2px solid;
   border-radius: 2px;
   width: 90%;
   margin: 0.2em;
@@ -101,6 +173,10 @@ h2, .subtitle {
 }
 
 /* Slides sobre vantagens do ggiraph */
+#why-girafe {
+  margin-top: 3%;
+}
+
 #why-ggiraph {
   flex-direction: column;
   align-items: center;
@@ -151,4 +227,15 @@ h2, .subtitle {
 /* Slides sobre customização */
 #custom-intro {
   width: 65%;
+}
+
+/* Slides sobre hospedagem */
+#host-img {
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 5%;
+}
+
+#host-img img {
+  width: 180px;
 }
