@@ -70,6 +70,7 @@ files <- dplyr::tibble(
 )
 bancodedados <- bancodedados |> dplyr::inner_join(files)
 
+# Gera o polygon que serve com mask para a imagem da capa
 htmltools::tags$svg(
   class = "clip-svg",
   htmltools::tags$defs(
@@ -81,6 +82,17 @@ htmltools::tags$svg(
     )
   )
 )
+
+# Conecta a uma versão slim do JQuery por meio de CDN 
+htmltools::tags$script(src="https://code.jquery.com/jquery-3.6.4.min.js",
+                       integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=",
+                       crossorigin="anonymous")
+
+# Conecta com a biblioteca anime.js localmente
+htmltools::tags$script(src = "www/js/anime.min.js")
+
+# Conecta ao arquivo que configura animações na página
+htmltools::tags$script(src = "www/js/animation.js")
 
 ```
 
@@ -99,7 +111,7 @@ O `{ggplot2}` tem como base o conceito de "Gramática de gráficos". Isto é, os
 
 Frequentemente encontramos em gráficos ao menos três tipos de elementos que nos permitem produzir uma representação visual das variáveis presentes em um banco de dados:
 
-<div class='flex-row listing-items'>
+<div class='flex-row listing-items martop5'>
 <div class='list-item'><div>Formas geométricas</div><hr>**geom**</div>
 <div class='list-item'><div>Regras do mapeamento</div><hr>**scale**</div>
 <div class='list-item'><div>Estética e decoração</div><hr>**theme**</div>
@@ -224,7 +236,7 @@ ggplot(bancodedados) +
 
 A função `aes()` é o elo de ligação entre as variáveis do banco de dados e as formas geométricas em um gráfico.
 
-<div class='flex-row' id='explain-aes'>
+<div class='flex-row martop5' id='explain-aes'>
 ```{r}
 set.seed(13)
 bancodedados |> 
@@ -286,7 +298,7 @@ O `{ggiraph}` é uma extensão do `{ggplot2}` e do `{htmlwidgets}` que traduz el
 
 O `{ggiraph}` segue a mesma filosofia do `{ggplot}`, mas com elementos interativos.
 
-<div class='flex-row' id='why-elements'>
+<div class='flex-row martop5' id='why-elements'>
 <div class='list-item'><div>geom_point()</div><hr>**ggplot**</div>
 <div class='list-item'><div>geom_point_interactive()</div><hr>**ggiraph**</div>
 </div>
@@ -359,7 +371,7 @@ ggiraph::girafe(ggobj = estatico, bg = "#0c0c0c")
 
 Etapas de criação de um gráfico interativo ggiraph:
 
-<div id='why-steps'>
+<div class='martop5' id='why-steps'>
 <div class='text-steps'>Uso de elementos interativos<br><span>geom, scale, etc</span></div>
 ```{.r}
 geom_point_interactive(
@@ -393,7 +405,7 @@ ggiraph::girafe(
 
 Três novos argumentos fazem a mediação entre o banco de dados e a peça interativa no ggiraph:
 
-<div class='flex-row listing-items'>
+<div class='flex-row listing-items martop5'>
 <div class='list-item'><div>Cria tooltips com HTML</div><hr>**tooltip**</div>
 <div class='list-item'><div>Agrupa formas geométricas</div><hr>**data_id**</div>
 <div class='list-item'><div>Comandos JS por clique</div><hr>**onclick**</div>
@@ -643,9 +655,9 @@ ggiraph::girafe(
 ## Hospedando o gráfico
 [Interatividade além do painel "Viewer"]{.subtitle}
 
-Como o gráfico interativo do ggiraph é composto de elementos svg, ele pode ser inserido tanto em documentos HTML feitos em Quarto/R Markdown quanto em apps feitos em Shiny.
+Como o gráfico interativo gerado pela função `girafe()` é composto de elementos svg, ele pode ser inserido tanto em documentos HTML feitos em Quarto/R Markdown quanto em apps feitos em Shiny.
 
-<div class='flex-row gap10' id='host-img'>
+<div class='flex-row gap10 martop5' id='host-img'>
 ![](https://github.com/quarto-dev/quarto-r/raw/main/man/figures/quarto.png)
 
 ![](https://github.com/rstudio/rmarkdown/raw/main/man/figures/logo.png)
@@ -657,6 +669,81 @@ Como o gráfico interativo do ggiraph é composto de elementos svg, ele pode ser
 ## Hospedando o gráfico
 [Interatividade além do painel "Viewer"]{.subtitle}
 
+```{.r}
+# ```{r} Todo o processamento é realizado dentro de chunks
 
+## Versão estática c/ elementos interativos e sintaxe ggplot
+estatico <- ...
 
+## Versão interativa
+ggiraph::girafe(ggobj = estatico, bg = "#0c0c0c")
 
+# ```
+```
+
+<div class='martop5'>
+Em documentos HTML a função `girafe()` pode ser chamada diretamente dentro de um `chunk R`. A página HTML gerada pode ser então hospedada em quaiquer serviços. Duas opções gratuitas e fáceis de usar são o **R Pubs** e o **Github Pages**.
+</div>
+
+<!-- ########################## Slide ########################## -->
+## Hospedando o gráfico
+[Interatividade além do painel "Viewer"]{.subtitle}
+
+```{.r}
+# Todo o processamento é realizado no *server* dentro do ggiraph::renderGirafe()
+output$interativo <- ggiraph::renderGirafe({
+  
+  ## Versão estática c/ elementos interativos e sintaxe ggplot
+  estatico <- ...
+  
+  ## Versão interativa
+  ggiraph::girafe(ggobj = estatico, bg = "#0c0c0c")
+  
+})
+
+# A posição do gráfico é definida no *UI*
+ggiraph::girafeOutput("interativo", width = "100%")
+```
+
+<div class='martop5'>
+Já os Shiny apps, estes são divididos entre a parte do UI e do server. A função `girafe()` é chamada dentro da função `renderGirafe()` na parte do server. A posição do gráfico é definida através da função `girafeOutput()` na parte do UI.
+</div>
+
+<!-- ########################## Slide ########################## -->
+## Galeria de exemplos
+[Produções próprias com código comentado livre para acesso]{.subtitle}
+
+<div class='flex-column'>
+<a id='gallery-carmen' class='gallery-item' href='https://icarobernardes.github.io/carmen_sandiego_DOS/' target='_blank'></a>
+<div class='gallery-caption'>
+<p>Arte em homenagem ao jogo educativo "Where in the World is Carmen Sandiego?". Rico em uso de tooltips e efeitos por hover.</p>
+<p>💻 Repositório: <a href='https://github.com/IcaroBernardes/carmen_sandiego_DOS' target='_blank'>acesse aqui</a></p>
+<p>🚀 Página: <a href='https://icarobernardes.github.io/carmen_sandiego_DOS/' target='_blank'>acesse aqui</a></p>
+</div>
+</div>
+
+<!-- ########################## Slide ########################## -->
+## Galeria de exemplos
+[Produções próprias com código livre]{.subtitle}
+
+<div class='flex-column'>
+<a id='gallery-brlineup' class='gallery-item' href='https://icarobernardes.github.io/brazil_lineup/' target='_blank'></a>
+<div class='gallery-caption'>
+<p>Arte que lista os países dos clubes dos convocados da seleção brasileira masculina de Futebol para as copas de 1932 até 2022. Usa cliques para "filtrar" a visão por país.</p>
+<p>💻 Repositório: <a href='https://github.com/IcaroBernardes/brazil_lineup' target='_blank'>acesse aqui</a></p>
+<p>🚀 Página: <a href='https://icarobernardes.github.io/brazil_lineup/' target='_blank'>acesse aqui</a></p>
+</div>
+</div>
+
+<!-- ########################## Slide ########################## -->
+## Galeria de exemplos
+[Produções próprias com código livre]{.subtitle}
+
+<div class='flex-column'>
+<a id='gallery-gppresid' class='gallery-item' href='https://icarobernardes.github.io/gp_eleitoral/' target='_blank'></a>
+<div class='gallery-caption'>
+<p>Arte que mostra o top 5 partidos em eleições presidenciais brasileiras de 1998 até 2018 nas maiores cidades por estado. Usa tooltips e uma função customizada para incluir imagens baseada em `{ggpath}`.</p>
+<p>💻 Repositório: <a href='https://github.com/IcaroBernardes/gp_eleitoral' target='_blank'>acesse aqui</a></p>
+<p>🚀 Página: <a href='https://icarobernardes.github.io/gp_eleitoral/' target='_blank'>acesse aqui</a></p>
+</div>
+</div>

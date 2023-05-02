@@ -37,6 +37,10 @@ h2 {
   gap: 10%;
 }
 
+.martop5 {
+  margin-top: 5%;
+}
+
 /* Configura cores de links */
 :root {
   --r-link-color: #42a4fa;
@@ -123,7 +127,6 @@ h2 {
 .listing-items {
   justify-content: space-around;
   align-items: flex-end;
-  margin-top: 5%;
 }
 
 .listing-items > div {
@@ -152,7 +155,6 @@ h2 {
 #explain-aes {
   justify-content: space-around;
   align-items: flex-start;
-  margin-top: 5%;
 }
 
 #explain-aes > div:nth-child(1) {
@@ -197,7 +199,6 @@ h2 {
 }
 
 #why-elements {
-  margin-top: 5%;
   justify-content: space-around;
 }
 
@@ -213,7 +214,6 @@ h2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 1em;
-  margin-top: 5%;
 }
 
 .text-steps {
@@ -233,9 +233,34 @@ h2 {
 #host-img {
   align-items: center;
   justify-content: space-around;
-  margin-top: 5%;
 }
 
 #host-img img {
   width: 180px;
+}
+
+/* Slides de galeria */
+.gallery-item {
+  height: 300px;
+  width: 100%;
+  background-size: cover;
+  background-position-x: 0%;
+  background-position-y: 0%;
+  margin-bottom: 2%;
+}
+
+.gallery-caption {
+  font-size: 0.7em;
+}
+
+#gallery-carmen {
+  background-image: linear-gradient(90deg, #0c0c0c 0%,  transparent 25% 75%, #0c0c0c 100%), url("./images/carmen.png");
+}
+
+#gallery-brlineup {
+  background-image: linear-gradient(90deg, #0c0c0c 0%,  transparent 25% 75%, #0c0c0c 100%), url("./images/brlineup.png");
+}
+
+#gallery-gppresid {
+  background-image: linear-gradient(90deg, #0c0c0c 0%,  transparent 25% 75%, #0c0c0c 100%), url("./images/gppresid.png");
 }
