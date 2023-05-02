@@ -1,3 +1,10 @@
+/* Torna a fonte 'Font Awesome 6 -  Brands' disponível */
+@font-face {
+  font-family: 'FA6brands';
+  src:  url('./fonts/FA6brands.woff') format('woff'), /* Navegadores modernos */
+        url('./fonts/FA6brands.ttf')  format('truetype'); /* Safari, Android, iOS */
+}
+
 /* Elementos em geral */
 :root {
   --r-background-color: #0c0c0c;
@@ -21,6 +28,10 @@ h2 {
 
 .reveal pre {
   font-size: 0.3em;
+}
+
+.reveal pre code {
+  background-color: var(--r-background-color) !important;
 }
 
 .flex-row {
@@ -108,6 +119,47 @@ h2 {
   height: 97%;
   top: 2%;
   right: 0;
+}
+
+#author {
+  align-items: center;
+}
+
+#author img {
+  border-radius: 50%;
+  border: #046FCC 10px solid;
+}
+
+#author-profile {
+  padding: 3%;
+  padding-right: 5%;
+  align-items: center;
+  border-right: white 5px solid;
+  border-radius: 200px;
+}
+
+.author-link {
+  font-size: 0.7em;
+  display: block;
+  margin: 0.5em 1em;
+}
+
+.glyph {
+  font-family: 'FA6brands';
+  font-size: 0.9em;
+  margin: 0 0.2em;
+}
+
+#twt:before {
+  content: '\f099';
+}
+
+#ghb:before {
+  content: '\f09b';
+}
+
+#lkd:before {
+  content: '\f08c';
 }
 
 /* Slides sobre camadas do ggplot */

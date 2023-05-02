@@ -96,6 +96,42 @@ htmltools::tags$script(src = "www/js/animation.js")
 
 ```
 
+<!-- ########################## Slide ########################## -->
+## {}
+
+<div class='flex-row gap10' id='author'>
+
+<div class='flex-column' id='author-profile'>
+
+![](www/images/profile.jpg)
+
+<div>
+<strong>Ícaro Bernardes</strong>
+<a class='author-link' href='https://twitter.com/icarobsc' target='_blank'><span id='twt' class='glyph'></span>@IcaroBSC</a>
+<a class='author-link' href='https://github.com/IcaroBernardes' target='_blank'><span id='ghb' class='glyph'></span>@IcaroBernardes</a>
+<a class='author-link' href='https://www.linkedin.com/in/icarobsc/' target='_blank'><span id='lkd' class='glyph'></span>@icarobsc</a>
+</div>
+
+</div>
+
+<div>
+* Bacharel em Eng. Química (UFBA)
+* Co-fundador da startup de análise de dados, [BIT::Analytics](https://linktr.ee/bitanalytics)
+</div>
+
+</div>
+
+<!-- ########################## Slide ########################## -->
+## {}
+
+* Membro ativo em comunidades de dataviz
+  + [DuBoisChallenge](https://github.com/IcaroBernardes/webdubois)
+  + [TidyTuesday](https://github.com/IcaroBernardes/tidytuesday)
+  + [30DayChartChallenge](https://github.com/IcaroBernardes/30DayChartChallenge)
+  + [30DayMapChallenge](https://github.com/IcaroBernardes/30DayMapChallenge)
+  + [GamesNightViz](https://github.com/IcaroBernardes/gamesviz)
+
+<!-- ########################## Slide ########################## -->
 ## ggplot
 [Compondo gráficos com camadas]{.subtitle}
 
