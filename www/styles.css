@@ -383,9 +383,15 @@ h2 {
   font-size: 2.3em;
 }
 
+#thanks-carnaval {
+  font-size: 0.7em;
+  width: 35%;
+  margin-right: 3%;
+}
+
 #thanks-profile {
   top: 15%;
-  font-size: 1.3em;
+  font-size: 1.2em;
 }
 
 #thanks-profile a {
