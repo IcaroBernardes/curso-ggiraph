@@ -812,7 +812,7 @@ Já os Shiny apps, estes são divididos entre a parte do UI e do server. A funç
 
 <!-- ########################## Slide ########################## -->
 ## Galeria de exemplos
-[Produções próprias com código livre]{.subtitle}
+[Produções próprias com código comentado livre para acesso]{.subtitle}
 
 <div class='flex-column'>
 <a id='gallery-brlineup' class='gallery-item' href='https://icarobernardes.github.io/brazil_lineup/' target='_blank'></a>
@@ -825,7 +825,7 @@ Já os Shiny apps, estes são divididos entre a parte do UI e do server. A funç
 
 <!-- ########################## Slide ########################## -->
 ## Galeria de exemplos
-[Produções próprias com código livre]{.subtitle}
+[Produções próprias com código comentado livre para acesso]{.subtitle}
 
 <div class='flex-column'>
 <a id='gallery-gppresid' class='gallery-item' href='https://icarobernardes.github.io/gp_eleitoral/' target='_blank'></a>
