@@ -5,6 +5,13 @@
         url('./fonts/FA6brands.ttf')  format('truetype'); /* Safari, Android, iOS */
 }
 
+/* Torna a fonte 'Font Awesome 6 -  Solid' disponível */
+@font-face {
+  font-family: 'FA6solid';
+  src:  url('./fonts/FA6solid.woff') format('woff'), /* Navegadores modernos */
+        url('./fonts/FA6solid.ttf')  format('truetype'); /* Safari, Android, iOS */
+}
+
 /* Elementos em geral */
 :root {
   --r-background-color: #0c0c0c;
@@ -128,6 +135,7 @@ h2 {
 #author img {
   border-radius: 50%;
   border: white 10px solid;
+  width: 70%;
 }
 
 #author-profile {
@@ -135,7 +143,7 @@ h2 {
   padding-right: 5%;
   align-items: center;
   border-right: white 5px solid;
-  border-radius: 200px;
+  border-radius: 150px;
 }
 
 .author-link {
@@ -160,6 +168,11 @@ h2 {
 
 #lkd:before {
   content: '\f08c';
+}
+
+#eml:before {
+  font-family: 'FA6solid';
+  content: '\f0e0';
 }
 
 #challenges {
@@ -356,4 +369,25 @@ h2 {
 
 #gallery-gppresid {
   background-image: linear-gradient(90deg, #0c0c0c 0%,  transparent 25% 75%, #0c0c0c 100%), url("./images/gppresid.png");
+}
+
+/* Slide final de agradecimento */
+#thanks-text, #thanks-profile {
+  position: relative;
+  width: fit-content;
+  left: 5%;
+}
+
+#thanks-text {
+  top: 5%;
+  font-size: 2.3em;
+}
+
+#thanks-profile {
+  top: 15%;
+  font-size: 1.3em;
+}
+
+#thanks-profile a {
+  width: fit-content;
 }
