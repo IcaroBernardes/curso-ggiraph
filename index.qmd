@@ -29,6 +29,7 @@ library(ggiraph)
 library(carnaval)
 library(glue)
 library(htmltools)
+library(purrr)
 
 # Carrega notas do grupo especial do carnaval carioca de 10/11 e calcula totais
 bancodedados <- carnaval::get_scores(years = 2010:2011)
@@ -116,6 +117,7 @@ htmltools::tags$script(src = "www/js/animation.js")
 
 <div>
 * Bacharel em Eng. Química (UFBA)
+* Membro de grupo de pesquisa em estatística aplicada durante a graduação [(GAMMA/UFBA)](https://gamma.ufba.br)
 * Co-fundador da startup de análise de dados, [BIT::Analytics](https://linktr.ee/bitanalytics)
 </div>
 
@@ -124,12 +126,61 @@ htmltools::tags$script(src = "www/js/animation.js")
 <!-- ########################## Slide ########################## -->
 ## {}
 
-* Membro ativo em comunidades de dataviz
-  + [DuBoisChallenge](https://github.com/IcaroBernardes/webdubois)
-  + [TidyTuesday](https://github.com/IcaroBernardes/tidytuesday)
-  + [30DayChartChallenge](https://github.com/IcaroBernardes/30DayChartChallenge)
-  + [30DayMapChallenge](https://github.com/IcaroBernardes/30DayMapChallenge)
-  + [GamesNightViz](https://github.com/IcaroBernardes/gamesviz)
+<div id='challenges-text'>Membro ativo em comunidades de dataviz</div>
+
+```{r}
+
+htmltools::div(
+  class='flex-row', id='challenges',
+  
+  htmltools::div(
+    class='flex-column',
+    
+    htmltools::a("DuBoisChallenge", href = "https://github.com/IcaroBernardes/webdubois", target = "_blank"),
+    glue::glue("www/images/challenges/webdubois{1:4}.png") |> 
+      purrr::map(~htmltools::img(src = .))
+    
+  ),
+  
+  htmltools::div(
+    class='flex-column',
+    
+    htmltools::a("TidyTuesday", href = "https://github.com/IcaroBernardes/tidytuesday", target = "_blank"),
+    glue::glue("www/images/challenges/tidytuesday{1:4}.png") |> 
+      purrr::map(~htmltools::img(src = .))
+    
+  ),
+  
+  htmltools::div(
+    class='flex-column',
+    
+    htmltools::a("30DayChartChallenge", href = "https://github.com/IcaroBernardes/30DayChartChallenge", target = "_blank"),
+    glue::glue("www/images/challenges/30DayChartChallenge{1:4}.png") |> 
+      purrr::map(~htmltools::img(src = .))
+    
+  ),
+  
+  htmltools::div(
+    class='flex-column',
+    
+    htmltools::a("30DayMapChallenge", href = "https://github.com/IcaroBernardes/30DayMapChallenge", target = "_blank"),
+    glue::glue("www/images/challenges/30DayMapChallenge{1:4}.png") |> 
+      purrr::map(~htmltools::img(src = .))
+    
+  ),
+  
+  htmltools::div(
+    class='flex-column',
+    
+    htmltools::a("GamesNightViz", href = "https://github.com/IcaroBernardes/gamesviz", target = "_blank"),
+    glue::glue("www/images/challenges/gamesviz{1:3}.png") |> 
+      purrr::map(~htmltools::img(src = .))
+    
+  )
+  
+)
+
+```
 
 <!-- ########################## Slide ########################## -->
 ## ggplot
@@ -461,7 +512,7 @@ estatico <- ggplot(bancodedados) +
   aes(
     # Tooltip é uma string que aceita código HTML e CSS
     tooltip = glue::glue(
-      "<img src='www/images/{filename}.jpg' width='150px;'>
+      "<img src='www/images/escudos/{filename}.jpg' width='150px;'>
       <div style='width:110px;text-align:center;padding:20px;'>{school}</div>"
     )
   ) +
@@ -487,7 +538,7 @@ estatico <- ggplot(bancodedados) +
   aes(
     # Tooltip é uma string que aceita código HTML e CSS
     tooltip = glue::glue(
-      "<img src='www/images/{filename}.jpg' width='150px;'>
+      "<img src='www/images/escudos/{filename}.jpg' width='150px;'>
       <div style='width:110px;text-align:center;padding:20px;'>{school}</div>"
     )
   ) +
@@ -783,3 +834,21 @@ Já os Shiny apps, estes são divididos entre a parte do UI e do server. A funç
 <p>🚀 Página: <a href='https://icarobernardes.github.io/gp_eleitoral/' target='_blank'>acesse aqui</a></p>
 </div>
 </div>
+
+<!-- ########################## Slide ########################## -->
+## {}
+
+<div class='flex-column' id='author-profile'>
+
+![](www/images/profile.jpg)
+
+<div>
+<strong>Ícaro Bernardes</strong>
+<a class='author-link' href='https://twitter.com/icarobsc' target='_blank'><span id='twt' class='glyph'></span>@IcaroBSC</a>
+<a class='author-link' href='https://github.com/IcaroBernardes' target='_blank'><span id='ghb' class='glyph'></span>@IcaroBernardes</a>
+<a class='author-link' href='https://www.linkedin.com/in/icarobsc/' target='_blank'><span id='lkd' class='glyph'></span>@icarobsc</a>
+</div>
+
+</div>
+
+Obrigado por participar!

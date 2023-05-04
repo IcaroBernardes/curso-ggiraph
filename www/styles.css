@@ -127,7 +127,7 @@ h2 {
 
 #author img {
   border-radius: 50%;
-  border: #046FCC 10px solid;
+  border: white 10px solid;
 }
 
 #author-profile {
@@ -160,6 +160,47 @@ h2 {
 
 #lkd:before {
   content: '\f08c';
+}
+
+#challenges {
+  font-size: 0.5em;
+}
+
+#challenges .flex-column {
+  align-items: center;
+}
+
+#challenges .flex-column:nth-of-type(1) {
+  background: linear-gradient(#0c0c0c, #CCA929, #0c0c0c);
+}
+
+#challenges .flex-column:nth-of-type(2) {
+  background: linear-gradient(#0c0c0c, #CC4527, #0c0c0c);
+}
+
+#challenges .flex-column:nth-of-type(3) {
+  background: linear-gradient(#0c0c0c, #9329CC, #0c0c0c);
+}
+
+#challenges .flex-column:nth-of-type(4) {
+  background: linear-gradient(#0c0c0c, #29ABCC, #0c0c0c);
+}
+
+#challenges .flex-column:nth-of-type(5) {
+  background: linear-gradient(#0c0c0c, #41CC29, #0c0c0c);
+}
+
+#challenges img {
+  width: 60%;
+}
+
+#challenges a {
+  margin-top: 5%;
+}
+
+#challenges-text {
+  text-align: center;
+  margin: 1% 0;
 }
 
 /* Slides sobre camadas do ggplot */
