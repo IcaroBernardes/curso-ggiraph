@@ -843,7 +843,7 @@ Já os Shiny apps, estes são divididos entre a parte do UI e do server. A funç
 <div class='flex-row martop5'>
 
 <div id='thanks-carnaval'>
-O banco de dados usado nos exemplos pode ser obtido através do pacote {carnaval}
+O banco de dados usado nos exemplos pode ser obtido através do pacote [`{carnaval}`](https://github.com/IcaroBernardes/carnaval)
 ![](www/images/carnaval.png)
 </div>
 
